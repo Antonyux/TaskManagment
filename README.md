@@ -1,6 +1,6 @@
-# 🚀 User Database Management System (Task 1)  
+# 🚀 User Task Management System (Task 1)  
 
-A simple and efficient **User Management System** built with **Express.js** and **MySQL**, designed to manage user database of an organisation.  
+A simple and efficient **User Task Management System** built with **Express.js** and **MySQL**, designed to manage user database and tasks of an organisation.  
 
 ## 📌 Features  
 - User authentication (JWT-based)  

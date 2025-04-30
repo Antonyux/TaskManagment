@@ -164,6 +164,38 @@ exports.getUserById = async (req, res) => {
 };
 
 
+
+exports.createTask = async (req, res) => {
+    try {
+        const {
+            title = null,
+            description = null,
+            assignedTo = null,
+            status = null,
+            priority = null
+          } = req.body;
+        
+
+        const task = await Task.create({
+            title,
+            description,
+            assignedTo,
+            status,
+            priority,
+            createdBy : req.user.id
+        });
+
+        res.status(201).json({
+            message: "task added successfully!",
+            task
+        });
+    } catch (error) {
+        res.status(500).json({ error: "Error creating task" });
+    }
+};
+
+
+
 exports.getTasks = async (req, res) => {
     try {
 
@@ -180,9 +212,11 @@ exports.updateTask = async (req, res) => {
     try {
         const {
             id,
+            title = null,
+            description = null,
             assignedTo = null,
             status = null,
-            priority = null,
+            priority = null
           } = req.body;
 
 
@@ -195,7 +229,8 @@ exports.updateTask = async (req, res) => {
 
         const updatedTask = Object.fromEntries(
             Object.entries({
-                id,
+                title,
+                description,
                 assignedTo,
                 status,
                 priority

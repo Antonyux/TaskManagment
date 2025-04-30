@@ -1,4 +1,6 @@
 const { User } = require('../models');
+const { Task } = require('../models');
+
 const bcrypt = require('bcrypt');
 const { Op } = require('sequelize');
 
@@ -75,3 +77,39 @@ exports.logout = async (req, res) => {
     return res.status(200).json({ message: "Logged out successfully" });
 }
 
+exports.updateUserTask = async (req, res) => {
+    try {
+
+        const {
+            id,
+            title = null,
+            description = null,
+            assignedTo = null,
+            status = null,
+            priority = null
+          } = req.body;     
+
+        const task = await Task.findByPk(id);
+        
+        if (!task) {
+            return res.status(404).json({ message: "Task not found" });
+        }
+
+        const updatedData = Object.fromEntries(
+            Object.entries({
+                title,
+                description,
+                assignedTo,
+                status,
+                priority
+            }).filter(([_, value]) => value !== null)
+          );
+
+        await task.update(updatedData);
+
+        res.json({ message: "Task updated successfully", user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error updating Task" });
+    }
+};
