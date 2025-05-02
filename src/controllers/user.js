@@ -77,6 +77,41 @@ exports.logout = async (req, res) => {
     return res.status(200).json({ message: "Logged out successfully" });
 }
 
+
+
+exports.createTask = async (req, res) => {
+    try {
+        const {
+            title = null,
+            description = null,
+            assignedTo = null,
+            status = null,
+            priority = null
+          } = req.body;
+        
+
+        const task = await Task.create({
+            title,
+            description,
+            assignedTo,
+            status,
+            priority,
+            createdBy : req.user.id
+        });
+
+        res.status(201).json({
+            message: "task added successfully!",
+            task
+        });
+    } catch (error) {
+        res.status(500).json({ error: "Error creating task" });
+    }
+};
+
+
+
+
+
 exports.updateUserTask = async (req, res) => {
     try {
 
@@ -111,5 +146,45 @@ exports.updateUserTask = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Error updating Task" });
+    }
+};
+
+exports.getMyTasks = async (req, res) => {
+    try {
+
+        const user = await User.findByPk(req.user.id);
+
+        const tasks = await user.getAssignedTasks({
+        include: {
+            model: User,
+            as: 'creator',
+            attributes: ['id', 'name']
+        }
+        });
+
+        res.json(tasks);
+
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching tasks" });
+    }
+};
+
+exports.createdTasks = async (req, res) => {
+    try {
+
+        const user = await User.findByPk(req.user.id);
+        
+        const tasks = await user.getCreatedTasks({
+        include: {
+            model: User,
+            as: 'assignee',
+            attributes: ['id', 'name']
+        }
+        });
+
+        res.json(tasks);
+
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching tasks" });
     }
 };

@@ -7,11 +7,11 @@ const Task = require('./task');
 Role.hasMany(User, { foreignKey: 'roleId' });
 User.belongsTo(Role, { foreignKey: 'roleId' });
 
-User.hasMany(Task, { foreignKey: 'createdBy' });
-Task.belongsTo(User, { foreignKey: 'createdBy' });
+User.hasMany(Task, { foreignKey: 'createdBy', as: 'createdTasks' });
+Task.belongsTo(User, { foreignKey: 'createdBy', as: 'creator' });
 
-User.hasMany(Task, { foreignKey: 'assignedTo' });
-Task.belongsTo(User, { foreignKey: 'assignedTo' });
+User.hasMany(Task, { foreignKey: 'assignedTo', as: 'assignedTasks' });
+Task.belongsTo(User, { foreignKey: 'assignedTo', as: 'assignee' });
 
 // DB object
 const db = { sequelize, User, Role, Task };

@@ -1,6 +1,5 @@
 const db = require('../models');
 const User = db.User;
-const Role = db.Role;
 const Task = db.Task;
 
 module.exports.verifyTaskUpdate = async (req, res, next) => {
