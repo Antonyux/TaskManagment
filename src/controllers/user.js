@@ -82,9 +82,9 @@ exports.logout = async (req, res) => {
 exports.createTask = async (req, res) => {
     try {
         const {
-            title = null,
-            description = null,
-            assignedTo = null,
+            title,
+            description,
+            assignedTo,
             status = null,
             priority = null
           } = req.body;
