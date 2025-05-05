@@ -145,7 +145,7 @@ exports.updateUserTask = async (req, res) => {
 
         await task.update(updatedData);
 
-        res.json({ message: "Task updated successfully", user });
+        res.json({ message: "Task updated successfully", task });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Error updating Task" });

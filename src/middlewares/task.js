@@ -1,17 +1,10 @@
 const db = require('../models');
-const User = db.User;
 const Task = db.Task;
 
 module.exports.verifyTaskUpdate = async (req, res, next) => {
     try {
 
-        const task =   Task.findOne({
-            where: { id: req.user.id },
-            include: {
-                model: User,
-                attributes: ['id']
-            }
-        });
+        const task = await Task.findOne({ where: { id:req.body.id } });
 
         if (req.user.id != task.createdBy)
         {
