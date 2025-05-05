@@ -85,19 +85,22 @@ exports.createTask = async (req, res) => {
             title,
             description,
             assignedTo,
-            status = null,
-            priority = null
+            status,
+            priority
           } = req.body;
         
 
-        const task = await Task.create({
+          const taskData = {
             title,
             description,
             assignedTo,
-            status,
-            priority,
-            createdBy : req.user.id
-        });
+            createdBy: req.user.id
+          };
+      
+          if (status !== undefined) taskData.status = status;
+          if (priority !== undefined) taskData.priority = priority;
+      
+          const task = await Task.create(taskData);
 
         res.status(201).json({
             message: "task added successfully!",

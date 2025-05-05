@@ -1,4 +1,4 @@
-# 🚀 User Task Management System (Task 1)  
+# User Task Management System  
 
 A simple and efficient **User Task Management System** built with **Express.js** and **MySQL**, designed to manage user database and tasks of an organisation.  
 
@@ -7,7 +7,8 @@ A simple and efficient **User Task Management System** built with **Express.js**
 - Role-based access control (Admin & User)  
 - Secure password management  
 - Email and Phone Number verification  
-- CRUD operations for users  
+- CRUD operations for users 
+- Task Managment
 
 ## 🛠️ Technologies Used  
 - **Backend:** Node.js, Express.js  
