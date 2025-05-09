@@ -161,7 +161,7 @@ exports.getMyTasks = async (req, res) => {
         include: {
             model: User,
             as: 'creator',
-            attributes: ['id', 'name']
+            attributes: ['id', 'firstName', 'lastName' ]
         }
         });
 
@@ -174,23 +174,23 @@ exports.getMyTasks = async (req, res) => {
 
 exports.createdTasks = async (req, res) => {
     try {
-
+        console.log("user",req.user.id);
         const user = await User.findByPk(req.user.id);
         
         const tasks = await user.getCreatedTasks({
-        include: {
-            model: User,
-            as: 'assignee',
-            attributes: ['id', 'name']
-        }
+            include: {
+                model: User,
+                as: 'assignee',
+                attributes: ['id', 'firstName', 'lastName' ]
+            }
         });
 
         res.json(tasks);
-
     } catch (error) {
         res.status(500).json({ error: "Error fetching tasks" });
-    }
+    }      
 };
+
 
 exports.deleteUserTask = async (req, res) => {
     try {

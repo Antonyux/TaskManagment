@@ -20,7 +20,7 @@ module.exports.verifyToken = async (req, res, next) => {
         return res.status(404).json({ message: "User not found or deleted" });
     }
 
-    req.user = decoded; 
+    req.user = decoded;
     next();
   } catch (error) {
     return res.status(401).json({ error: "Invalid or expired token" });

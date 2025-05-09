@@ -11,23 +11,27 @@ const { verifyToken } = require('../middlewares/auth');
 const { verifyAdmin } = require('../middlewares/admin');
 
 
-router.put('/profile/update', verifyToken, nullValidation, userController.updateUserProfile);
+router.put('/profile/update', verifyToken, nullValidation, userController.updateUserProfile );
 
 router.post('/createTask', verifyToken, userController.createTask );
 
-router.put('/updateUserTask', verifyToken, task.verifyTaskUpdate, userController.updateUserTask);
+router.put('/updateUserTask', verifyToken, task.verifyTaskUpdate, userController.updateUserTask );
 
-router.get('/getMyTask', verifyToken, userController.getMyTasks);
+router.get('/getMyTasks', verifyToken, userController.getMyTasks );
 
-router.get('/createdTask', verifyToken, userController.createdTasks );
+router.get('/createdTasks', verifyToken, userController.createdTasks );
 
-router.post('/logout', verifyToken, userController.logout);
+router.delete('/deleteTask/:id', verifyToken, task.verifyTaskDelete, userController.deleteUserTask );
 
 
 
-router.post('/admin/create', verifyToken, verifyAdmin, validation, adminController.createUser);
+router.post('/logout', verifyToken, userController.logout );
 
-router.get('/admin/users', verifyToken, verifyAdmin, adminController.getUsers);
+
+
+router.post('/admin/create', verifyToken, verifyAdmin, validation, adminController.createUser );
+
+router.get('/admin/users', verifyToken, verifyAdmin, adminController.getUsers );
 
 router.put('/admin/updateTask', verifyToken, verifyAdmin, task.verifyTaskUpdate, adminController.updateTask );
 
@@ -35,11 +39,13 @@ router.post('/admin/createTask', verifyToken, verifyAdmin, adminController.creat
 
 router.get('/admin/viewTask', verifyToken, verifyAdmin, adminController.getTasks );
 
-router.get('/admin/:id', verifyToken, verifyAdmin, adminController.getUserById);
+router.delete('/admin/deleteTask/:id', verifyToken, verifyAdmin, adminController.deleteTask );
 
-router.put('/admin/:id', verifyToken, verifyAdmin, nullValidation, adminController.updateUser);
+router.get('/admin/:id', verifyToken, verifyAdmin, adminController.getUserById );
 
-router.delete('/admin/:id', verifyToken, verifyAdmin, adminController.deleteUser);
+router.put('/admin/:id', verifyToken, verifyAdmin, nullValidation, adminController.updateUser );
+
+router.delete('/admin/:id', verifyToken, verifyAdmin, adminController.deleteUser );
 
 
 module.exports = router;
